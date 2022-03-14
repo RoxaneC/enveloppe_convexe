@@ -5,7 +5,7 @@ function [x_proj,y_proj] = projete_ortho(p,p1,p2)
   [x_vect2, y_vect2] = vect(p1,p);
   
   # calcule le produit scalaire des deux vecteurs considérés (p1->p) et (p1->p2)
-  scal = scalaire([x_vect1, y_vect1],[x_vect2, y_vect2]);
+  scal = dot([x_vect1, y_vect1],[x_vect2, y_vect2]);
   # calcule la norme au carré du vecteur (p1->p2)
   norm_carre = x_vect1^2 + y_vect1^2;
   
