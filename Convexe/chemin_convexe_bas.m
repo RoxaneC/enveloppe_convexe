@@ -4,7 +4,7 @@
 % convexe du groupe de points de coordonnées (X,Y) et passant en dessous du
 % segment [p1;p2]
 
-% Version : 1.0
+% Version : 1.1
 % Author : Cellier R.
 
 function chemin = chemin_convexe_bas(p1, p2, X, Y)
@@ -12,10 +12,18 @@ function chemin = chemin_convexe_bas(p1, p2, X, Y)
   [coeff_dir, const] = equation_cartesienne(p1,p2);
   
   % on ne considère plus dans le groupe à tester les points formants la droite cartésienne
-  X = X(X~=p1(1) & X~=p2(1));
-  Y = Y(Y~=p1(2) & Y~=p2(2));
+  X_test = X;
+  Y_test = Y;
+  x_p1 = find(X==p1(1))(1);
+  x_p2 = find(X==p2(1))(1);
+  y_p1 = find(Y==p1(2))(1);
+  y_p2 = find(Y==p2(2))(1);
+  X_test(x_p1) = [];
+  X_test(x_p2) = [];
+  Y_test(y_p1) = [];
+  Y_test(y_p2) = [];
   % calcule le nombre de points placés strictement en dessous du segment [p1;p2]
-  hors_connexe = sum(Y < (X.*coeff_dir +const));
+  hors_connexe = sum(Y_test < (X_test.*coeff_dir +const));
   
   if hors_connexe == 0
     % s'il n'y a aucun point en dessous du segment, renvoie simplement le segment [p1;p2]
@@ -23,15 +31,15 @@ function chemin = chemin_convexe_bas(p1, p2, X, Y)
   elseif hors_connexe == 1
     % s'il n'y a qu'un point en dessous du segment, on l'ajoute directement, puis
     % on renvoie le nouveau chemin [p1;new;p2]
-    x_new = X(Y < (X.*coeff_dir +const));
-    y_new = Y(Y < (X.*coeff_dir +const));
+    x_new = X_test(Y_test < (X_test.*coeff_dir +const));
+    y_new = Y_test(Y_test < (X_test.*coeff_dir +const));
     chemin = [p1;[x_new, y_new];p2];
   else
     % s'il y a plusieurs points en dessous du segment, on stocke leurs coordonnées
     % dans un tableau auxiliaire, et l'on initialise le tableau distance
     distances = 0;
-    X_aux = X(Y < (X.*coeff_dir +const));
-    Y_aux = Y(Y < (X.*coeff_dir +const));
+    X_aux = X_test(Y_test < (X_test.*coeff_dir +const));
+    Y_aux = Y_test(Y_test < (X_test.*coeff_dir +const));
     
     for i = 1:hors_connexe
       % voir projete_ortho
