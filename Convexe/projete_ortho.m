@@ -7,8 +7,8 @@
 
 function [x_proj,y_proj] = projete_ortho(p,p1,p2)
   # on considère le vecteur (p1->p2) et le vecteur à projeter (p1->p)
-  [x_vect1, y_vect1] = vect(p1,p2);
-  [x_vect2, y_vect2] = vect(p1,p);
+  [x_vect1, y_vect1] = direction_vect(p1,p2);
+  [x_vect2, y_vect2] = direction_vect(p1,p);
   
   # calcule le produit scalaire des deux vecteurs considérés (p1->p) et (p1->p2)
   scal = dot([x_vect1, y_vect1],[x_vect2, y_vect2]);
