@@ -1,6 +1,12 @@
+% usage : matrix = chemin_convexe_haut(p1, p2, X, Y)
+%
 % Par récurrence, renvoie le chemin des points formant le haut de l'enveloppe
 % convexe du groupe de points de coordonnées (X,Y) et passant au dessus du
 % segment [p1;p2]
+
+% Version : 1.0
+% Author : Cellier R.
+
 function chemin = chemin_convexe_haut(p1, p2, X, Y)
   # voir equation_cartesienne
   [coeff_dir, const] = equation_cartesienne(p1,p2);
@@ -48,7 +54,7 @@ function chemin = chemin_convexe_haut(p1, p2, X, Y)
     new_cheminG = chemin_convexe_haut(p1, nouv_p, X, Y);
     new_cheminD = chemin_convexe_haut(nouv_p, p2, X, Y);
     
-    # on renvoie le chemin final trouvé entre les points p1 et p2
+    # on renvoie le chemin final trouvé entre les points p1 et p2 (en supprimant le doublon)
     chemin = [new_cheminG(1:end-1,:);new_cheminD];
   end
 endfunction
