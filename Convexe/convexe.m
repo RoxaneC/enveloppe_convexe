@@ -1,10 +1,15 @@
-% definit le chemin et trace l'enveloppe convexe d'un ensemble de N points
-% dont les coordonnées sont tirées aléatoirement et de façon uniforme dans le
-% carré [0,1]*[0,1] (pour l'instant, à venir : decider des intervalles)
-function convexe = convexe(N)
-  # tirage des coordonnées
-  X = rand(1,N);
-  Y = rand(1,N);
+% Definit le chemin et trace l'enveloppe convexe d'un ensemble de points
+% stockés dans une matrice M. On va définir par convention que les points sont
+% entrés ligne par ligne (i.e. la première colonne représente les coordonnées
+% sur l'axe X et la seconde représente les coordonnées sur l'axes Y)
+%
+% Version : 1.0
+% Author : Cellier R.
+
+function chemin_convexe = convexe(M)
+  # séparation des coordonnées des points contenus dans la matrice M
+  X = M(:,1);
+  Y = M(:,2);
 
   # affiche l'ensemble des points de coordonnées (x,y)
   figure; subplot(1,2,1)
@@ -21,11 +26,11 @@ function convexe = convexe(N)
   convexeB = chemin_convexe_bas(P_Gauche, P_Droite, X,Y);
   # assemble les chemins haut et bas pour former le chemin final de l'enveloppe
   # convexe (par convention, le point de départ est le point le plus à gauche)
-  convexe = [convexeH(1:end-1,:);convexeB(end:-1:1,:)];
+  chemin_convexe = [convexeH(1:end-1,:);convexeB(end:-1:1,:)];
 
   # affiche l'ensemble des points et trace l'enveloppe convexe
   subplot(1,2,2)
   plot(X,Y, '+');
   axis("square"); hold on;
-  plot(convexe(1:end,1), convexe(1:end,2),'r-');
+  plot(chemin_convexe(1:end,1), chemin_convexe(1:end,2),'r-');
 endfunction
