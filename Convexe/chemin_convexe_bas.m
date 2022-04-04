@@ -54,7 +54,7 @@ function chemin = chemin_convexe_bas(p1, p2, X, Y)
     new_cheminG = chemin_convexe_bas(p1, nouv_p, X, Y);
     new_cheminD = chemin_convexe_bas(nouv_p, p2, X, Y);
     
-    # on renvoie le chemin final trouvé entre les points p1 et p2
+    # on renvoie le chemin final trouvé entre les points p1 et p2 (en supprimant le doublon)
     chemin = [new_cheminG(1:end-1,:);new_cheminD];
   end
 endfunction
