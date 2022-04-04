@@ -1,4 +1,10 @@
+% usage : coord = projete_ortho(p,p1,p2)
+%
 % Renvoie les coordonnées du projeté orthogonal de p sur le segment [p1,p2]
+
+% Version : 1.0
+% Author : Cellier R.
+
 function [x_proj,y_proj] = projete_ortho(p,p1,p2)
   # on considère le vecteur (p1->p2) et le vecteur à projeter (p1->p)
   [x_vect1, y_vect1] = vect(p1,p2);
