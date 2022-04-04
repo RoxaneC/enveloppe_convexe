@@ -1,27 +1,24 @@
-% usage : matrix = chemin_convexe_haut(p1, p2, X, Y)
+% usage : matrix = chemin_convexe_haut(p1, p2, M)
 %
 % Par récurrence, renvoie le chemin des points formant le haut de l'enveloppe
-% convexe du groupe de points de coordonnées (X,Y) et passant au dessus du
+% convexe du groupe de points de coordonnées M et passant au dessus du
 % segment [p1;p2]
 
-% Version : 1.1
+% Version : 1.2
 % Author : Cellier R.
 
-function chemin = chemin_convexe_haut(p1, p2, X, Y)
+function chemin = chemin_convexe_haut(p1, p2, M)
   % voir equation_cartesienne
   [coeff_dir, const] = equation_cartesienne(p1,p2);
   
   % on ne considère plus dans le groupe à tester les points formants la droite cartésienne
-  X_test = X;
-  Y_test = Y;
-  x_p1 = find(X==p1(1))(1);
-  x_p2 = find(X==p2(1))(1);
-  y_p1 = find(Y==p1(2))(1);
-  y_p2 = find(Y==p2(2))(1);
-  X_test(x_p1) = [];
-  X_test(x_p2) = [];
-  Y_test(y_p1) = [];
-  Y_test(y_p2) = [];
+  a = find(M==[p1],1);
+  b = find(M==[p2],1);
+  X_test = M(:,1);
+  Y_test = M(:,2);
+  X_test(a) = [];
+  Y_test(a) = [];
+  
   % calcule le nombre de points placés strictement au dessus du segment [p1;p2]
   hors_connexe = sum(Y_test > (X_test.*coeff_dir +const));
   
@@ -59,8 +56,8 @@ function chemin = chemin_convexe_haut(p1, p2, X, Y)
     nouv_p = [x_new(1), y_new(1)];
     
     % par récurrence on cherche les points à ajouter à chaque nouveau segment
-    new_cheminG = chemin_convexe_haut(p1, nouv_p, X, Y);
-    new_cheminD = chemin_convexe_haut(nouv_p, p2, X, Y);
+    new_cheminG = chemin_convexe_haut(p1, nouv_p, M);
+    new_cheminD = chemin_convexe_haut(nouv_p, p2, M);
     
     % on renvoie le chemin final trouvé entre les points p1 et p2 (en supprimant le doublon)
     chemin = [new_cheminG(1:end-1,:);new_cheminD];
