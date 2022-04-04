@@ -1,12 +1,15 @@
-% Definit le chemin et trace l'enveloppe convexe d'un ensemble de points
-% stockés dans une matrice M. On va définir par convention que les points sont
-% entrés ligne par ligne (i.e. la première colonne représente les coordonnées
-% sur l'axe X et la seconde représente les coordonnées sur l'axes Y)
+% usage : matrix = convexe(M)
 %
+% Définit (dans une matrice) le chemin et trace l'enveloppe convexe d'un ensemble
+% de points stockés dans une matrice M. On va définir par convention que les points
+% sont entrés ligne par ligne (i.e. la première colonne représente les coordonnées
+% sur l'axe X et la seconde représente les coordonnées sur l'axes Y)
+
 % Version : 1.0
 % Author : Cellier R.
 
 function chemin_convexe = convexe(M)
+  assert(ismatrix(M), "M doit être une matrice")
   # séparation des coordonnées des points contenus dans la matrice M
   X = M(:,1);
   Y = M(:,2);
