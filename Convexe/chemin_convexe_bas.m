@@ -1,6 +1,10 @@
 % Par récurrence, renvoie le chemin des points formant le bas de l'enveloppe
 % convexe du groupe de points de coordonnées (X,Y) et passant en dessous du
 % segment [p1;p2]
+%
+% Version : 1.0
+% Author : Cellier R.
+
 function chemin = chemin_convexe_bas(p1, p2, X, Y)
   # voir equation_cartesienne
   [coeff_dir, const] = equation_cartesienne(p1,p2);
