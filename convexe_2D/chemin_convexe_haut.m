@@ -12,12 +12,12 @@ function chemin = chemin_convexe_haut(p1, p2, M)
   [coeff_dir, const] = equation_cartesienne(p1,p2);
   
   % on ne considère plus dans le groupe à tester les points formants la droite cartésienne
-  a = find(M==[p1],1);
-  b = find(M==[p2],1);
   X_test = M(:,1);
   Y_test = M(:,2);
-  X_test(a) = [];
-  Y_test(a) = [];
+  a = find(M==[p1],1);
+  b = find(M==[p2],1);
+  X_test([a b],:) = [];
+  Y_test([a b],:) = [];
   
   % calcule le nombre de points placés strictement au dessus du segment [p1;p2]
   hors_connexe = sum(Y_test > (X_test.*coeff_dir +const));
