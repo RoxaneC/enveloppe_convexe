@@ -9,7 +9,7 @@
 % Author : Cellier R.
 
 function chemin_convexe = convexe(M)
-  assert(ismatrix(M), "Les points doivent être listés dans une matrice")
+  assert(size(M,2)==2, "Les points doivent être listés dans une matrice à deux colonnes (X et Y)")
   n = size(M,1);
   
   % séparation des coordonnées des points contenus dans la matrice M
